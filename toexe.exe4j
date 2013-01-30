@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<exe4j version="4.2" transformSequenceNumber="1">
+  <directoryPresets config="E:/yinhai/NetBeansProjects/kq2/lib" />
+  <application name="yhkq" distributionSourceDir="E:/yinhai/NetBeansProjects/kq2">
+    <languages>
+      <principalLanguage id="en" customLocalizationFile="" />
+    </languages>
+  </application>
+  <executable name="yhkq" type="2" iconSet="true" iconFile="E:/yinhai/NetBeansProjects/kq2/icon/lrico.ico" executableDir="" redirectStderr="true" stderrFile="error.log" redirectStdout="false" stdoutFile="output.log" failOnStderrOutput="true" executableMode="1" changeWorkingDirectory="true" workingDirectory="." singleInstance="false" serviceStartType="2" serviceDependencies="" serviceDescription="" jreLocation="" executionLevel="asInvoker" checkConsoleParameter="false" amd64="false">
+    <messageSet />
+    <versionInfo include="false" fileVersion="" fileDescription="" legalCopyright="" internalName="" companyName="" productVersion="" />
+  </executable>
+  <splashScreen show="true" autoOff="true" alwaysOnTop="true" width="0" height="0" bitmapFile="E:/yinhai/NetBeansProjects/kq2/icon/lrWelcome.png" java6SplashScreen="true">
+    <text>
+      <statusLine x="20" y="20" text="" font="Arial" fontSize="8" fontColor="0,0,0" fontWeight="500" />
+      <versionLine x="20" y="40" text="version %VERSION%" font="Arial" fontSize="8" fontColor="0,0,0" fontWeight="500" />
+    </text>
+  </splashScreen>
+  <java mainClass="org.kaoqin.ui.MainFrame" vmParameters="" arguments="" allowVMPassthroughParameters="true" preferredVM="" minVersion="1.6" maxVersion="" allowBetaVM="false" jdkOnly="false">
+    <searchSequence>
+      <registry />
+      <envVar name="JAVA_HOME" />
+      <envVar name="JDK_HOME" />
+    </searchSequence>
+    <classPath>
+      <archive location="./dist/kq2.jar" failOnError="false" />
+      <archive location="./lib/httpclient/commons-codec-1.4.jar" failOnError="false" />
+      <archive location="./lib/httpclient/commons-logging-1.1.1.jar" failOnError="false" />
+      <archive location="./lib/httpclient/httpclient-4.1.2.jar" failOnError="false" />
+      <archive location="./lib/httpclient/httpclient-cache-4.1.2.jar" failOnError="false" />
+      <archive location="./lib/httpclient/httpcore-4.1.2.jar" failOnError="false" />
+      <archive location="./lib/httpclient/httpmime-4.1.2.jar" failOnError="false" />
+      <archive location="./lib/log4j/log4j-1.2.8.jar" failOnError="false" />
+      <archive location="./lib/nekohtml/bcel-5.2.jar" failOnError="false" />
+      <archive location="./lib/nekohtml/junit-3.8.2.jar" failOnError="false" />
+      <archive location="./lib/nekohtml/maven-ant-tasks-2.0.8.jar" failOnError="false" />
+      <archive location="./lib/nekohtml/nekohtml.jar" failOnError="false" />
+      <archive location="./lib/nekohtml/xercesImpl.jar" failOnError="false" />
+      <archive location="./lib/nekohtml/xml-apis.jar" failOnError="false" />
+      <archive location="./lib/commons-lang-2.5.jar" failOnError="false" />
+    </classPath>
+    <nativeLibraryDirectories />
+  </java>
+  <includedFiles />
+  <unextractableFiles />
+</exe4j>
+
