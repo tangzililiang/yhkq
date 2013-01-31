@@ -15,8 +15,8 @@ import org.kaoqin.vo.User;
  */
 public class Configer {
 	public class Const {
-		public static final String SYS_CONFIG_PATH = "config/config.properties";
-		public static final String USER_CONFIG_PATH = "config/users.properties";
+		public static final String SYS_CONFIG_PATH = "data/config.properties";
+		public static final String USER_CONFIG_PATH = "data/users.properties";
 		public static final String SPLIT_CHAR = "\\.";// 分隔符
 		public static final String DEFAULT_CONTENT_CHARSET = "gb2312";
 		//ASP.NET隐藏域
@@ -91,7 +91,10 @@ public class Configer {
 		throw new IllegalArgumentException("密码不能为空!");
 	    }
             if (StringUtils.isEmpty(user.getYzm())) {
-		throw new IllegalArgumentException("cookie验证码不能为空!");
+		throw new IllegalArgumentException("验证码不能为空!");
+	    }
+             if (StringUtils.isEmpty(user.getYgyzm())) {
+		throw new IllegalArgumentException("员工验证码不能为空!");
 	    }
             if (StringUtils.isEmpty(user.getIp())) {
 		throw new IllegalArgumentException("IP不能为空!");

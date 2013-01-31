@@ -56,8 +56,8 @@ public class KaoqinTask implements Runnable {
 	 * @throws Exception
 	 */
 	public void setUp() throws Exception {
-		final String yzmCookie = "yinhai.yzm=" + user.getYzm();//cookie中的验证码
-		final String ip = user.getIp();
+		final String yzmCookie = "yinhai.yzm=" + user.getYzm()+";yinhai.ygyzm="+user.getYgyzm();//cookie中的验证码
+		final String ip = user.getIp()+","+Configer.getProporty("proxy");
 		HttpRequestInterceptor interceptor = new HttpRequestInterceptor() {
 			public void process(HttpRequest request, HttpContext context)
 					throws HttpException, IOException {

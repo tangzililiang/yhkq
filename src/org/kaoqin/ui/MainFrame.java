@@ -69,6 +69,7 @@ public class MainFrame extends javax.swing.JFrame {
         checkInterval = new javax.swing.JSpinner();
         jLabel5 = new javax.swing.JLabel();
         btnKqImmediately = new javax.swing.JButton();
+        modifyIP = new javax.swing.JCheckBox();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTextAreaMsg = new javax.swing.JTextArea();
@@ -110,11 +111,11 @@ public class MainFrame extends javax.swing.JFrame {
 
             },
             new String [] {
-                "用户名", "密码", "Cookie验证码", "IP地址"
+                "用户名", "密码", "验证码", "员工验证码", "IP地址"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -163,7 +164,7 @@ public class MainFrame extends javax.swing.JFrame {
         checkInterval.setModel(new javax.swing.SpinnerNumberModel(1, 1, 20, 1));
 
         jLabel5.setForeground(new java.awt.Color(255, 153, 153));
-        jLabel5.setText("分钟检查一次，如果当前时间符合考勤条件，则自动考勤");
+        jLabel5.setText("分钟检查一次，如果符合考勤条件，则自动考勤");
 
         btnKqImmediately.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/kaoqin/ui/tree-bug.png"))); // NOI18N
         btnKqImmediately.setText("立即考勤");
@@ -173,22 +174,45 @@ public class MainFrame extends javax.swing.JFrame {
             }
         });
 
+        modifyIP.setText("修改本机IP地址");
+        modifyIP.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                modifyIPActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jScrollPane2)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(6, 6, 6)
+                        .addComponent(btnAddUser, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnDeleteUser, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel6)
+                        .addGap(18, 18, 18)
+                        .addComponent(checkInterval, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel5)
+                        .addGap(18, 18, 18)
+                        .addComponent(modifyIP, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap())
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel3)
                             .addComponent(jLabel1))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(sbTime, javax.swing.GroupLayout.DEFAULT_SIZE, 109, Short.MAX_VALUE)
-                            .addComponent(proxy))
-                        .addGap(18, 18, 18)
+                            .addComponent(sbTime)
+                            .addComponent(proxy, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(26, 26, 26)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel4))
@@ -196,41 +220,27 @@ public class MainFrame extends javax.swing.JFrame {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(port, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(xbTime, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(proxyEnable, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(jLabel7)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(kaoqinServerHost, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel6)
-                        .addGap(18, 18, 18)
-                        .addComponent(checkInterval, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel5))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(67, 67, 67)
-                                .addComponent(btnSave)
-                                .addGap(40, 40, 40)
-                                .addComponent(btnBegin)
-                                .addGap(42, 42, 42)
-                                .addComponent(btnKqImmediately))
-                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 507, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(6, 6, 6)
-                                .addComponent(btnAddUser, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btnDeleteUser, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))))))
+                                .addComponent(kaoqinServerHost, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(proxyEnable, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18))))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(106, 106, 106)
+                .addComponent(btnSave)
+                .addGap(40, 40, 40)
+                .addComponent(btnBegin)
+                .addGap(42, 42, 42)
+                .addComponent(btnKqImmediately)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(jLabel2)
@@ -249,20 +259,20 @@ public class MainFrame extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
                     .addComponent(checkInterval, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel5))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel5)
+                    .addComponent(modifyIP))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(btnSave)
-                            .addComponent(btnBegin)
-                            .addComponent(btnKqImmediately)))
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(btnAddUser)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnDeleteUser)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnSave)
+                    .addComponent(btnBegin)
+                    .addComponent(btnKqImmediately))
                 .addGap(307, 307, 307))
         );
 
@@ -280,7 +290,7 @@ public class MainFrame extends javax.swing.JFrame {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 554, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 588, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
@@ -371,6 +381,7 @@ public class MainFrame extends javax.swing.JFrame {
             Configer.setProporty("port", this.port.getValue().toString());
             Configer.setProporty("checkInterval", this.checkInterval.getValue().toString());
             Configer.setProporty("proxyEnable", String.valueOf(this.proxyEnable.isSelected()));
+            Configer.setProporty("modifyIP", String.valueOf(this.modifyIP.isSelected()));
             //用户配置信息
             DefaultTableModel tableModel = (DefaultTableModel) usersTable.getModel();
             int rowCount=tableModel.getRowCount();
@@ -379,7 +390,8 @@ public class MainFrame extends javax.swing.JFrame {
                 user.setUsername((String)tableModel.getValueAt(i, 0));
                 user.setPassword((String)tableModel.getValueAt(i, 1));
                 user.setYzm((String)tableModel.getValueAt(i, 2));
-                user.setIp((String)tableModel.getValueAt(i, 3));
+                user.setYgyzm((String)tableModel.getValueAt(i, 3));
+                user.setIp((String)tableModel.getValueAt(i, 4));
                 Configer.addUser(user);
             }
             //保存配置
@@ -393,7 +405,7 @@ public class MainFrame extends javax.swing.JFrame {
 
     private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
         //关于
-        JOptionPane.showMessageDialog(null, "银海考勤工具  Version： 1.1 \r\n Author:  txx", "关于", JOptionPane.INFORMATION_MESSAGE);
+        JOptionPane.showMessageDialog(null, "YH考勤工具  Version： 1.1 beta \r\n Author:  txx", "关于", JOptionPane.INFORMATION_MESSAGE);
     }//GEN-LAST:event_jMenuItem2ActionPerformed
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
@@ -446,6 +458,10 @@ public class MainFrame extends javax.swing.JFrame {
             }
         }).start();
     }//GEN-LAST:event_btnKqImmediatelyActionPerformed
+
+    private void modifyIPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_modifyIPActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_modifyIPActionPerformed
     
     /**
      * 初始化托盘图标
@@ -465,7 +481,7 @@ public class MainFrame extends javax.swing.JFrame {
                     popup.add(exitItem);
                     // 创建系统托盘
                     SystemTray tray = SystemTray.getSystemTray();
-                    Image image = Toolkit.getDefaultToolkit().getImage("icon/kq.png");// 载入图片
+                    Image image = Toolkit.getDefaultToolkit().getImage(getClass().getResource("/org/kaoqin/ui/tree-bug.png"));// 载入图片
                     trayIcon = new TrayIcon(image, "YH考勤", popup);// 创建trayIcon
                     trayIcon.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
@@ -530,7 +546,7 @@ public class MainFrame extends javax.swing.JFrame {
                 final MainFrame mainFrame = new MainFrame();
                 mainFrame.setIconImage(Toolkit.getDefaultToolkit().createImage("icon/kq.png"));
                 mainFrame.setVisible(true);
-                mainFrame.setTitle("YH考勤工具 V1.1");
+                mainFrame.setTitle("YH考勤工具 V1.1 beta");
                 mainFrame.setLocation(350, 80);
                 //设置当点击右上角关闭按钮最小化，不退出程序
                 mainFrame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
@@ -560,12 +576,13 @@ public class MainFrame extends javax.swing.JFrame {
                     mainFrame.port.setValue(Integer.parseInt(Configer.getProporty("port")));
                     mainFrame.checkInterval.setValue(Integer.parseInt(Configer.getProporty("checkInterval")));
                     mainFrame.proxyEnable.setSelected(Boolean.parseBoolean(Configer.getProporty("proxyEnable")));
+                    mainFrame.modifyIP.setSelected(Boolean.parseBoolean(Configer.getProporty("modifyIP")));
                     //用户配置
                     List<User> userlist= Configer.getAllUser();
                     DefaultTableModel tableModel = (DefaultTableModel)  mainFrame.usersTable.getModel();
                     for(int i=0;i<userlist.size();i++){
                         User user=userlist.get(i);
-                        tableModel.addRow(new String[]{user.getUsername(),user.getPassword(),user.getYzm(),user.getIp()});
+                        tableModel.addRow(new String[]{user.getUsername(),user.getPassword(),user.getYzm(),user.getYgyzm(),user.getIp()});
                     }
                    
                 } catch (Exception e) {
@@ -600,6 +617,7 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane2;
     public javax.swing.JTextArea jTextAreaMsg;
     public javax.swing.JTextField kaoqinServerHost;
+    private javax.swing.JCheckBox modifyIP;
     private javax.swing.JSpinner port;
     public javax.swing.JTextField proxy;
     private javax.swing.JCheckBox proxyEnable;
