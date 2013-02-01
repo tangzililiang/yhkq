@@ -65,11 +65,18 @@ public class MainFrame extends javax.swing.JFrame {
         jLabel7 = new javax.swing.JLabel();
         port = new javax.swing.JSpinner();
         btnBegin = new javax.swing.JButton();
-        proxy = new javax.swing.JTextField();
         checkInterval = new javax.swing.JSpinner();
-        jLabel5 = new javax.swing.JLabel();
         btnKqImmediately = new javax.swing.JButton();
         modifyIP = new javax.swing.JCheckBox();
+        jLabel8 = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
+        jLabel10 = new javax.swing.JLabel();
+        proxy = new javax.swing.JTextField();
+        adapterName = new javax.swing.JTextField();
+        mask = new javax.swing.JTextField();
+        jLabel11 = new javax.swing.JLabel();
+        gateWay = new javax.swing.JTextField();
+        localIP = new javax.swing.JTextField();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTextAreaMsg = new javax.swing.JTextArea();
@@ -98,33 +105,39 @@ public class MainFrame extends javax.swing.JFrame {
 
         btnSave.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/kaoqin/ui/save.gif"))); // NOI18N
         btnSave.setText("保存配置");
+        btnSave.setToolTipText("保存所有配置信息");
         btnSave.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnSaveActionPerformed(evt);
             }
         });
 
+        kaoqinServerHost.setToolTipText("考勤网站IP地址");
+
         jLabel6.setText("定时器：");
+        jLabel6.setToolTipText("");
 
         usersTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "用户名", "密码", "验证码", "员工验证码", "IP地址"
+                "用户名", "密码", "验证码(cookie)", "员工验证码(cookie)", "IP地址", "MAC地址", "序列号"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
 
             public Class getColumnClass(int columnIndex) {
                 return types [columnIndex];
             }
         });
+        usersTable.setToolTipText("考勤用户配置信息");
         jScrollPane2.setViewportView(usersTable);
 
         btnAddUser.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/kaoqin/ui/add.gif"))); // NOI18N
+        btnAddUser.setToolTipText("添加一个用户");
         btnAddUser.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnAddUserActionPerformed(evt);
@@ -132,6 +145,7 @@ public class MainFrame extends javax.swing.JFrame {
         });
 
         btnDeleteUser.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/kaoqin/ui/candle.gif"))); // NOI18N
+        btnDeleteUser.setToolTipText("删除一个或多个用户");
         btnDeleteUser.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnDeleteUserActionPerformed(evt);
@@ -139,22 +153,27 @@ public class MainFrame extends javax.swing.JFrame {
         });
 
         sbTime.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter(java.text.DateFormat.getTimeInstance())));
+        sbTime.setToolTipText("上班时间");
 
         xbTime.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter(java.text.DateFormat.getTimeInstance())));
+        xbTime.setToolTipText("下班时间");
 
         proxyEnable.setText("启用代理");
+        proxyEnable.setToolTipText("使用配置的代理服务器访问考勤网站");
         proxyEnable.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 proxyEnableActionPerformed(evt);
             }
         });
 
-        jLabel7.setText("服务器IP:");
+        jLabel7.setText("考勤网站IP:");
 
         port.setModel(new javax.swing.SpinnerNumberModel(1, 1, 65535, 1));
+        port.setToolTipText("代理服务器端口");
 
         btnBegin.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/kaoqin/ui/tree-clock.png"))); // NOI18N
         btnBegin.setText("准备考勤");
+        btnBegin.setToolTipText("启动定时器，到上下班时间自动为所有用户执行考勤");
         btnBegin.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnBeginActionPerformed(evt);
@@ -162,80 +181,111 @@ public class MainFrame extends javax.swing.JFrame {
         });
 
         checkInterval.setModel(new javax.swing.SpinnerNumberModel(1, 1, 20, 1));
-
-        jLabel5.setForeground(new java.awt.Color(255, 153, 153));
-        jLabel5.setText("分钟检查一次，如果符合考勤条件，则自动考勤");
+        checkInterval.setToolTipText("x分钟检查一次，如果当前时间符合考勤条件，则自动考勤");
 
         btnKqImmediately.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/kaoqin/ui/tree-bug.png"))); // NOI18N
         btnKqImmediately.setText("立即考勤");
+        btnKqImmediately.setToolTipText("立即为所有用户执行考勤");
         btnKqImmediately.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnKqImmediatelyActionPerformed(evt);
             }
         });
 
-        modifyIP.setText("修改本机IP地址");
+        modifyIP.setText("自动修改本机IP地址");
+        modifyIP.setToolTipText("每个用户执行考勤时自动把本机IP修改成用户配置的IP地址(必须在一个网段)");
         modifyIP.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 modifyIPActionPerformed(evt);
             }
         });
 
+        jLabel8.setText("本机IP：");
+        jLabel8.setToolTipText("");
+
+        jLabel9.setText("子网掩码：");
+        jLabel9.setToolTipText("");
+
+        jLabel10.setText("适配器：");
+        jLabel10.setToolTipText("");
+
+        proxy.setToolTipText("代理服务器IP地址");
+
+        adapterName.setToolTipText("当前网络适配器名称，用于修改和还原 本机网络配置");
+
+        mask.setToolTipText("用于修改和还原本机网络配置");
+
+        jLabel11.setText("默认网关：");
+        jLabel11.setToolTipText("");
+
+        gateWay.setToolTipText("用于修改和还原本机网络配置");
+
+        localIP.setToolTipText("用于修改和还原本机网络配置");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
                 .addComponent(jScrollPane2)
+                .addGap(6, 6, 6)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(6, 6, 6)
-                        .addComponent(btnAddUser, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(btnDeleteUser, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(btnAddUser, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnDeleteUser, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(173, 173, 173)
+                .addComponent(btnSave)
+                .addGap(61, 61, 61)
+                .addComponent(btnBegin)
+                .addGap(64, 64, 64)
+                .addComponent(btnKqImmediately)
+                .addGap(0, 0, Short.MAX_VALUE))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel8)
+                    .addComponent(jLabel3)
+                    .addComponent(jLabel1))
+                .addGap(2, 2, 2)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(sbTime, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(proxy, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(localIP, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(32, 32, 32)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel4)
+                    .addComponent(jLabel9))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(xbTime, javax.swing.GroupLayout.DEFAULT_SIZE, 113, Short.MAX_VALUE)
+                    .addComponent(mask)
+                    .addComponent(port))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel6)
-                        .addGap(18, 18, 18)
-                        .addComponent(checkInterval, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel7)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel5)
-                        .addGap(18, 18, 18)
-                        .addComponent(modifyIP, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap())
+                        .addComponent(kaoqinServerHost, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel3)
-                            .addComponent(jLabel1))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(sbTime)
-                            .addComponent(proxy, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(26, 26, 26)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel4))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(port, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(xbTime, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jLabel11)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel7)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(kaoqinServerHost, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(proxyEnable, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18))))
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(106, 106, 106)
-                .addComponent(btnSave)
-                .addGap(40, 40, 40)
-                .addComponent(btnBegin)
-                .addGap(42, 42, 42)
-                .addComponent(btnKqImmediately)
-                .addGap(0, 0, Short.MAX_VALUE))
+                            .addComponent(proxyEnable, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(gateWay, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(modifyIP)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel6)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(checkInterval, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel10)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(adapterName, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -247,33 +297,40 @@ public class MainFrame extends javax.swing.JFrame {
                     .addComponent(sbTime, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(xbTime, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel7)
-                    .addComponent(kaoqinServerHost, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                    .addComponent(kaoqinServerHost, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel6)
+                    .addComponent(checkInterval, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel8)
+                    .addComponent(jLabel9)
+                    .addComponent(mask, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel11)
+                    .addComponent(gateWay, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel10)
+                    .addComponent(adapterName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(localIP, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
                     .addComponent(jLabel4)
                     .addComponent(proxyEnable)
                     .addComponent(port, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(modifyIP)
                     .addComponent(proxy, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel6)
-                    .addComponent(checkInterval, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel5)
-                    .addComponent(modifyIP))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(btnAddUser)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnDeleteUser)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnSave)
+                        .addComponent(btnDeleteUser))
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnBegin)
+                    .addComponent(btnSave)
                     .addComponent(btnKqImmediately))
-                .addGap(307, 307, 307))
+                .addGap(328, 328, 328))
         );
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("日志信息"));
@@ -282,6 +339,7 @@ public class MainFrame extends javax.swing.JFrame {
         jTextAreaMsg.setBackground(new java.awt.Color(204, 255, 255));
         jTextAreaMsg.setColumns(20);
         jTextAreaMsg.setRows(5);
+        jTextAreaMsg.setToolTipText("考勤日志信息，详细日志请查看日志文件");
         jScrollPane1.setViewportView(jTextAreaMsg);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
@@ -290,12 +348,12 @@ public class MainFrame extends javax.swing.JFrame {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 588, Short.MAX_VALUE)
+                .addComponent(jScrollPane1)
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 221, Short.MAX_VALUE)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 245, Short.MAX_VALUE)
         );
 
         jMenu1.setText("文件(F)");
@@ -340,9 +398,7 @@ public class MainFrame extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addContainerGap())))
+                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -381,7 +437,13 @@ public class MainFrame extends javax.swing.JFrame {
             Configer.setProporty("port", this.port.getValue().toString());
             Configer.setProporty("checkInterval", this.checkInterval.getValue().toString());
             Configer.setProporty("proxyEnable", String.valueOf(this.proxyEnable.isSelected()));
+            
             Configer.setProporty("modifyIP", String.valueOf(this.modifyIP.isSelected()));
+            Configer.setProporty("localIP", this.localIP.getText());
+            Configer.setProporty("mask", this.mask.getText());
+            Configer.setProporty("gateWay", this.gateWay.getText());
+            Configer.setProporty("adapterName", this.adapterName.getText());
+            
             //用户配置信息
             DefaultTableModel tableModel = (DefaultTableModel) usersTable.getModel();
             int rowCount=tableModel.getRowCount();
@@ -392,6 +454,8 @@ public class MainFrame extends javax.swing.JFrame {
                 user.setYzm((String)tableModel.getValueAt(i, 2));
                 user.setYgyzm((String)tableModel.getValueAt(i, 3));
                 user.setIp((String)tableModel.getValueAt(i, 4));
+                user.setMacaddress((String)tableModel.getValueAt(i, 5));
+                user.setSeriousnumber((String)tableModel.getValueAt(i, 6));
                 Configer.addUser(user);
             }
             //保存配置
@@ -569,20 +633,25 @@ public class MainFrame extends javax.swing.JFrame {
             public void loadConfigToUI(MainFrame mainFrame){
                 try {
                     //系统配置
-                    mainFrame.sbTime.setText(Configer.getProporty("sbTime"));
-                    mainFrame.xbTime.setText(Configer.getProporty("xbTime"));
-                    mainFrame.kaoqinServerHost.setText(Configer.getProporty("kaoqinServerHost"));
-                    mainFrame.proxy.setText(Configer.getProporty("proxy"));
-                    mainFrame.port.setValue(Integer.parseInt(Configer.getProporty("port")));
-                    mainFrame.checkInterval.setValue(Integer.parseInt(Configer.getProporty("checkInterval")));
-                    mainFrame.proxyEnable.setSelected(Boolean.parseBoolean(Configer.getProporty("proxyEnable")));
-                    mainFrame.modifyIP.setSelected(Boolean.parseBoolean(Configer.getProporty("modifyIP")));
+                    mainFrame.sbTime.setText(Configer.getProportyIgnor("sbTime"));
+                    mainFrame.xbTime.setText(Configer.getProportyIgnor("xbTime"));
+                    mainFrame.kaoqinServerHost.setText(Configer.getProportyIgnor("kaoqinServerHost"));
+                    mainFrame.proxy.setText(Configer.getProportyIgnor("proxy"));
+                    mainFrame.port.setValue(Integer.parseInt(Configer.getProportyIgnor("port")));
+                    mainFrame.checkInterval.setValue(Integer.parseInt(Configer.getProportyIgnor("checkInterval")));
+                    mainFrame.proxyEnable.setSelected(Boolean.parseBoolean(Configer.getProportyIgnor("proxyEnable")));
+                    
+                    mainFrame.modifyIP.setSelected(Boolean.parseBoolean(Configer.getProportyIgnor("modifyIP")));
+                    mainFrame.localIP.setText(Configer.getProportyIgnor("localIP"));
+                    mainFrame.mask.setText(Configer.getProportyIgnor("mask"));
+                    mainFrame.gateWay.setText(Configer.getProportyIgnor("gateWay"));
+                    mainFrame.adapterName.setText(Configer.getProportyIgnor("adapterName"));
                     //用户配置
                     List<User> userlist= Configer.getAllUser();
                     DefaultTableModel tableModel = (DefaultTableModel)  mainFrame.usersTable.getModel();
                     for(int i=0;i<userlist.size();i++){
                         User user=userlist.get(i);
-                        tableModel.addRow(new String[]{user.getUsername(),user.getPassword(),user.getYzm(),user.getYgyzm(),user.getIp()});
+                        tableModel.addRow(new String[]{user.getUsername(),user.getPassword(),user.getYzm(),user.getYgyzm(),user.getIp(),user.getMacaddress(),user.getSeriousnumber()});
                     }
                    
                 } catch (Exception e) {
@@ -592,19 +661,24 @@ public class MainFrame extends javax.swing.JFrame {
         });
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    public javax.swing.JTextField adapterName;
     private javax.swing.JButton btnAddUser;
     private javax.swing.JButton btnBegin;
     private javax.swing.JButton btnDeleteUser;
     private javax.swing.JButton btnKqImmediately;
     private javax.swing.JButton btnSave;
     private javax.swing.JSpinner checkInterval;
+    public javax.swing.JTextField gateWay;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
@@ -617,6 +691,8 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane2;
     public javax.swing.JTextArea jTextAreaMsg;
     public javax.swing.JTextField kaoqinServerHost;
+    public javax.swing.JTextField localIP;
+    public javax.swing.JTextField mask;
     private javax.swing.JCheckBox modifyIP;
     private javax.swing.JSpinner port;
     public javax.swing.JTextField proxy;

@@ -46,6 +46,20 @@ public class Configer {
 		return String.valueOf(value).trim();
 	}
         /**
+	 * 从Map中获取配置信息 并转换为String类型，若key不存在，返回“”，不抛出异常
+	 * 
+	 * @param key
+	 *            key
+	 * @return value value
+	 */
+	public static String getProportyIgnor(String key) {
+		Object value = config.get(key);
+		if (value == null || "".equals(String.valueOf(value))) {
+			return "";
+		}
+		return String.valueOf(value).trim();
+	}
+        /**
 	 * 设置配置信息
 	 * 
 	 * @param key

@@ -7,6 +7,8 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.http.Header;
@@ -20,6 +22,7 @@ import org.kaoqin.util.CodeParser;
 import org.kaoqin.util.Configer;
 import org.kaoqin.util.HttpHelper;
 import org.kaoqin.util.KqLoger;
+import org.kaoqin.util.NetworkOption;
 import org.kaoqin.vo.User;
 
 /**
@@ -30,7 +33,8 @@ import org.kaoqin.vo.User;
  */
 public class KaoqinTask implements Runnable {
 	private User user;// 用户对象
-
+        public static boolean taskFinish=true;//考勤任务执行完成标志
+        private static int delaySc=6;//修改ip后休眠时间 秒
 	public KaoqinTask(User user) {
 		this.user = user;
 	}
@@ -46,7 +50,11 @@ public class KaoqinTask implements Runnable {
 			log("考勤失败！程序运行异常：" + e.getMessage());
 			e.printStackTrace();
 		} finally {
-			tearDown();
+                    try {
+                        tearDown();
+                    } catch (Exception ex) {
+                        Logger.getLogger(KaoqinTask.class.getName()).log(Level.INFO, "考勤异常", ex);
+                    }
 		}
 	}
 
@@ -56,6 +64,23 @@ public class KaoqinTask implements Runnable {
 	 * @throws Exception
 	 */
 	public void setUp() throws Exception {
+                //判断上一个考勤任务是否执行完成
+                for(int i=0;i<1000;i++){
+                    if(KaoqinTask.taskFinish){
+                        break;
+                    }else{
+                        Thread.sleep(2000);
+                    }
+                }
+                KaoqinTask.taskFinish=false;
+                //修改IP
+                if(Boolean.valueOf(Configer.getProporty("modifyIP"))){
+                    log("更改本机网络配置，修改IP地址为："+user.getIp()+",请稍等"+delaySc+"秒....");
+                    NetworkOption.modifyIPAddress(user.getIp());
+                    Thread.sleep(delaySc*1000);
+                }
+                
+                
 		final String yzmCookie = "yinhai.yzm=" + user.getYzm()+";yinhai.ygyzm="+user.getYgyzm();//cookie中的验证码
 		final String ip = user.getIp()+","+Configer.getProporty("proxy");
 		HttpRequestInterceptor interceptor = new HttpRequestInterceptor() {
@@ -98,7 +123,7 @@ public class KaoqinTask implements Runnable {
 				}
 				request.removeHeaders("Cookie");
 				request.addHeader("Cookie", cookie);
-				// ip欺骗
+				// 透明代理ip欺骗
 				request.addHeader("X-Forwarded-For", ip);
 			}
 
@@ -253,7 +278,9 @@ public class KaoqinTask implements Runnable {
 			qparams.add(new BasicNameValuePair("img_sb.x", "78"));
 			qparams.add(new BasicNameValuePair("img_sb.y", "107"));
 		}
-		
+		//序列号和mac地址
+                qparams.add(new BasicNameValuePair("txt_1",StringUtils.rightPad(user.getSeriousnumber().trim(), 32, " ")));//序列号(补全至32位)
+                qparams.add(new BasicNameValuePair("txt_2", user.getMacaddress().trim()));//mac地址
 		log("==>>请求获取并解析验证码图片");
 		String txtYzm=CodeParser.getCaptchaCode(HttpHelper.getHttpClient());
 		log("==>>验证码："+txtYzm);
@@ -306,8 +333,15 @@ public class KaoqinTask implements Runnable {
 	 * 
 	 * @throws Exception
 	 */
-	public void tearDown() {
-                log("此次考勤完成！");
+	public void tearDown() throws Exception {
+            if(Boolean.valueOf(Configer.getProporty("modifyIP"))){
+                log("还原本机网络配置,请稍等"+delaySc+"秒...");
+                NetworkOption.restore();
+                Thread.sleep(delaySc*1000);
+            }
+            log("此次考勤完成！");
+            KaoqinTask.taskFinish=true;
+                
 	}
 
 	/**
