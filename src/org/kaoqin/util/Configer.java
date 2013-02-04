@@ -114,6 +114,12 @@ public class Configer {
             if (StringUtils.isEmpty(user.getIp())) {
 		throw new IllegalArgumentException("IP不能为空!");
 	    }
+            if (StringUtils.isEmpty(user.getMacaddress())) {
+		throw new IllegalArgumentException("MAC不能为空!");
+	    }
+            if (StringUtils.isEmpty(user.getSeriousnumber())) {
+		throw new IllegalArgumentException("序列号不能为空!");
+	    }
 	    userMap.put(user.getUsername(),user);
 	}
 
