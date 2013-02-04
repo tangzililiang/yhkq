@@ -469,7 +469,7 @@ public class MainFrame extends javax.swing.JFrame {
 
     private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
         //关于
-        JOptionPane.showMessageDialog(null, "YH考勤工具  Version： 1.1 beta \r\n Author:  txx", "关于", JOptionPane.INFORMATION_MESSAGE);
+        JOptionPane.showMessageDialog(null, Configer.Const.VERSION+" \r\n Author:  txx", "关于", JOptionPane.INFORMATION_MESSAGE);
     }//GEN-LAST:event_jMenuItem2ActionPerformed
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
@@ -536,17 +536,25 @@ public class MainFrame extends javax.swing.JFrame {
                     
                     // 创建弹出菜单
                     PopupMenu popup = new PopupMenu();
-                    MenuItem exitItem = new MenuItem("EXIT");
+                    MenuItem exitItem = new MenuItem("退出");
                     exitItem.addActionListener(new ActionListener() {
                             public void actionPerformed(ActionEvent e) {
                                     System.exit(0);
                             }
                     });
+                    MenuItem aboutItem = new MenuItem("关于");
+                    aboutItem.addActionListener(new ActionListener() {
+                            public void actionPerformed(ActionEvent e) {
+                                   JOptionPane.showMessageDialog(null, Configer.Const.VERSION+" \r\n Author:  txx", "关于", JOptionPane.INFORMATION_MESSAGE);
+                            }
+                    });
+                    popup.add(aboutItem);
                     popup.add(exitItem);
+                    
                     // 创建系统托盘
                     SystemTray tray = SystemTray.getSystemTray();
                     Image image = Toolkit.getDefaultToolkit().getImage(getClass().getResource("/org/kaoqin/ui/tree-bug.png"));// 载入图片
-                    trayIcon = new TrayIcon(image, "YH考勤", popup);// 创建trayIcon
+                    trayIcon = new TrayIcon(image, Configer.Const.VERSION, popup);// 创建trayIcon
                     trayIcon.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					MainFrame.this.setVisible(true);
@@ -608,9 +616,9 @@ public class MainFrame extends javax.swing.JFrame {
             
             public void run() {
                 final MainFrame mainFrame = new MainFrame();
-                mainFrame.setIconImage(Toolkit.getDefaultToolkit().createImage("icon/kq.png"));
+                mainFrame.setIconImage(Toolkit.getDefaultToolkit().createImage(getClass().getResource("/org/kaoqin/ui/tree-bug.png")));
                 mainFrame.setVisible(true);
-                mainFrame.setTitle("YH考勤工具 V1.1 beta");
+                mainFrame.setTitle(Configer.Const.VERSION);
                 mainFrame.setLocation(350, 80);
                 //设置当点击右上角关闭按钮最小化，不退出程序
                 mainFrame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
