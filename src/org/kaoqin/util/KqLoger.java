@@ -7,7 +7,7 @@ import org.kaoqin.ui.MainFrame;
 
 /**
  * 用于输出和保存考勤日志
- * @author lenovo
+ * @author tang
  */
 public class KqLoger {
         private static MainFrame mainFrame;//输出窗口

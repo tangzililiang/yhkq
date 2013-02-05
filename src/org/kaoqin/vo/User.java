@@ -1,9 +1,9 @@
 package org.kaoqin.vo;
 
 /**
- * 考勤系统登录用户信息
+ * 考勤系统用户信息
  *
- * @author lenovo
+ * @author tang
  *
  */
 public class User {

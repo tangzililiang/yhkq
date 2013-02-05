@@ -13,15 +13,23 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
- *
- * @author lenovo
+ * 本机网络配置工具类，通过执行cmd命令方式
+ * @author tang
  */
 public class NetworkOption {
-      
+      /**
+       * 修改ip
+       * @param ip
+       * @throws IOException 
+       */
       public static void modifyIPAddress(String ip) throws IOException {
          String command = "netsh  interface ip set address name=\""+Configer.getProporty("adapterName") +"\" source=static addr="+ip+" mask="+Configer.getProporty("mask") +" gateway="+Configer.getProporty("gateWay");
          Process pro = Runtime.getRuntime().exec(command);
       }
+      /**
+       * 还原网络配置
+       * @throws IOException 
+       */
       public static void restore() throws IOException{
          String command = "netsh  interface ip set address name=\""+Configer.getProporty("adapterName") +"\" source=static addr="+Configer.getProporty("localIP")+" mask="+Configer.getProporty("mask") +" gateway="+Configer.getProporty("gateWay");
          Process pro = Runtime.getRuntime().exec(command);

@@ -14,7 +14,7 @@ import org.kaoqin.vo.User;
 /**
  * 自动化考勤入口
  * 
- * @author lenovo
+ * @author tang
  */
 public class KaoqinManager {
        /**

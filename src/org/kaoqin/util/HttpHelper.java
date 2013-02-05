@@ -29,7 +29,7 @@ import org.apache.http.util.EntityUtils;
  * http请求封装类 主要用来创建HttpClient对象、封装GET/POST请求,提取页面参数等
  * 
  * @version 1.0, 13/01/17
- * @author lenovo
+ * @author tang
  * 
  */
 public class HttpHelper {

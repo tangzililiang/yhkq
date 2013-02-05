@@ -30,7 +30,7 @@ import org.apache.http.client.methods.HttpGet;
 /**
  * 获取验证码，OCR识别验证码,截屏截图等
  * 
- * @author lenovo
+ * @author tang
  * 
  */
 public class CodeParser {
@@ -85,7 +85,7 @@ public class CodeParser {
 	}
 
 	/**
-	 * 矩形切图
+	 * 矩形切图（已弃用）
 	 * 
 	 * @param srcImgPath
 	 * @return resultImgPath
@@ -116,7 +116,7 @@ public class CodeParser {
 	}
 
 	/**
-	 * 自定义大小矩形截屏
+	 * 自定义大小矩形截屏（已弃用）
 	 * 
 	 * @param filepath
 	 *            保存图片路径
@@ -148,15 +148,15 @@ public class CodeParser {
 	}
 
 	/**
-	 * 获取图片并保存（代理方式）
+	 * 获取图片并保存
 	 * 
+	 * @param client
 	 * @param url
-	 * @param proxy
-	 * @param port
-	 * @return 文件路径
+	 * @param imgPath
+	 * @return 
 	 * @throws Exception
 	 */
-	public static void requestAndSaveImg(HttpClient client, String url, String imgPath, String proxy, int port)
+	public static void requestAndSaveImg(HttpClient client, String url, String imgPath)
 			throws Exception {
 		FileOutputStream output = null;
 		InputStream input = null;
@@ -194,17 +194,6 @@ public class CodeParser {
 	}
 
 	/**
-	 * 获取图片并保存
-	 * 
-	 * @param url
-	 * @return 文件路径
-	 * @throws Exception
-	 */
-	public static void requestAndSaveImg(HttpClient client, String url,
-			 String imgPath) throws Exception {
-		requestAndSaveImg(client, url, imgPath, "", 0);
-	}
-	/**
 	 * 获取验证码
 	 * 
 	 * @param url
@@ -217,14 +206,8 @@ public class CodeParser {
 				+ ".png";// 验证码图片保存路径
 		// 获取验证码图片url(id号随机生成)
 		String url = "http://" + Configer.getProporty("kaoqinServerHost")
-				+ ":8081/webfrm_yzm.aspx?id" + Math.random();
-		if ("true".equals(Configer.getProporty("proxyEnable"))) {
-			String proxy = Configer.getProporty("proxy");
-			int port = Integer.parseInt(Configer.getProporty("port"));
-			requestAndSaveImg(httpClient, url, yzmImgPath, proxy, port);
-		} else {
-			requestAndSaveImg(httpClient, url, yzmImgPath);
-		}
+				+ ":8081/webfrm_yzm.aspx?id" + Math.random();	
+		requestAndSaveImg(httpClient, url, yzmImgPath);//请求并保存验证码图片
 		String code = recognitionCodeByOCR(yzmImgPath);// 识别验证码
 		new File(yzmImgPath).delete();// 删除验证码图片
 		return code;

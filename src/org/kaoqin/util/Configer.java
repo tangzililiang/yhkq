@@ -10,7 +10,7 @@ import org.kaoqin.vo.User;
 /**
  * 参数配置
  * 
- * @author lenovo
+ * @author tang
  * 
  */
 public class Configer {

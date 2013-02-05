@@ -24,8 +24,8 @@ import org.kaoqin.util.KqLoger;
 import org.kaoqin.vo.User;
 
 /**
- *
- * @author lenovo
+ * 考勤ui界面
+ * @author tang
  */
 public class MainFrame extends javax.swing.JFrame {
 

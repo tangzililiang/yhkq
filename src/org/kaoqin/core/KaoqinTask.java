@@ -28,7 +28,7 @@ import org.kaoqin.vo.User;
 /**
  * 单个考勤任务
  * 
- * @author lenovo
+ * @author tang
  * 
  */
 public class KaoqinTask implements Runnable {
