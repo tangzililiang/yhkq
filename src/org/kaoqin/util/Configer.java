@@ -19,10 +19,12 @@ public class Configer {
 		public static final String USER_CONFIG_PATH = "data/users.properties";
 		public static final String SPLIT_CHAR = "\\.";// 分隔符
 		public static final String DEFAULT_CONTENT_CHARSET = "gb2312";
-                public static final String VERSION = "YH考勤工具 V1.1 beta";
+                public static final String VERSION = "YH考勤工具 V1.1";
+                public static final String DEFAULT_PASSWORD = "123456";//默认密码
 		//ASP.NET隐藏域
 		public static final String EVENTVALIDATION = "__EVENTVALIDATION";
 		public static final String VIEWSTATE = "__VIEWSTATE";
+                
 	}
 
 	private static Map config = new HashMap();

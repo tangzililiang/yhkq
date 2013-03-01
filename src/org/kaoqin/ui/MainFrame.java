@@ -4,6 +4,7 @@
  */
 package org.kaoqin.ui;
 
+import hidden.org.codehaus.plexus.util.StringUtils;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -83,6 +84,7 @@ public class MainFrame extends javax.swing.JFrame {
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
+        jMenuItem4 = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
         jMenuItem2 = new javax.swing.JMenuItem();
         jMenuItem3 = new javax.swing.JMenuItem();
@@ -358,6 +360,7 @@ public class MainFrame extends javax.swing.JFrame {
 
         jMenu1.setText("文件(F)");
 
+        jMenuItem1.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_E, java.awt.event.InputEvent.ALT_MASK));
         jMenuItem1.setText("退出(E)");
         jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -366,10 +369,20 @@ public class MainFrame extends javax.swing.JFrame {
         });
         jMenu1.add(jMenuItem1);
 
+        jMenuItem4.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_M, java.awt.event.InputEvent.ALT_MASK));
+        jMenuItem4.setText("修改密码(M)");
+        jMenuItem4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem4ActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jMenuItem4);
+
         jMenuBar1.add(jMenu1);
 
         jMenu2.setText("帮助(H)");
 
+        jMenuItem2.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_A, java.awt.event.InputEvent.ALT_MASK));
         jMenuItem2.setText("关于(A)");
         jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -378,6 +391,7 @@ public class MainFrame extends javax.swing.JFrame {
         });
         jMenu2.add(jMenuItem2);
 
+        jMenuItem3.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_U, java.awt.event.InputEvent.ALT_MASK));
         jMenuItem3.setText("使用说明(U)");
         jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -526,6 +540,10 @@ public class MainFrame extends javax.swing.JFrame {
     private void modifyIPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_modifyIPActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_modifyIPActionPerformed
+
+    private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
+          modifySyspwd();
+    }//GEN-LAST:event_jMenuItem4ActionPerformed
     
     /**
      * 初始化托盘图标
@@ -548,23 +566,70 @@ public class MainFrame extends javax.swing.JFrame {
                                    JOptionPane.showMessageDialog(null, Configer.Const.VERSION+" \r\n Author:  txx", "关于", JOptionPane.INFORMATION_MESSAGE);
                             }
                     });
+                    MenuItem pwdItem = new MenuItem("修改密码");
+                    pwdItem.addActionListener(new ActionListener() {
+                            public void actionPerformed(ActionEvent e) {
+                                   modifySyspwd();
+                            }
+                    });
                     popup.add(aboutItem);
                     popup.add(exitItem);
+                    popup.add(pwdItem);
                     
                     // 创建系统托盘
                     SystemTray tray = SystemTray.getSystemTray();
                     Image image = Toolkit.getDefaultToolkit().getImage(getClass().getResource("/org/kaoqin/ui/tree-bug.png"));// 载入图片
-                    trayIcon = new TrayIcon(image, Configer.Const.VERSION, popup);// 创建trayIcon
+                    trayIcon = new TrayIcon(image, "YHLemis", popup);// 创建trayIcon
                     trayIcon.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent e) {
-					MainFrame.this.setVisible(true);
+				public void actionPerformed(ActionEvent e) {//输入密码打开主界面
+                                        MainFrame.this.setVisible(false);
+                                        String password="";
+                                        try{
+                                           password=Configer.getProporty("syspwd");
+                                        } catch (Exception ex) {
+                                           System.out.print(ex.getMessage());
+                                        }
+                                        if(StringUtils.isEmpty(password)){
+                                            password=Configer.Const.DEFAULT_PASSWORD;//默认密码
+                                        }
+                                        String inputPwd=JOptionPane.showInputDialog("请输入密码");
+                                        if(StringUtils.isNotEmpty(inputPwd)){
+                                            if(password.equals(inputPwd)){
+                                                MainFrame.this.setVisible(true);
+                                            }else{
+                                                JOptionPane.showMessageDialog(null, "密码错误！","提示信息", JOptionPane.ERROR_MESSAGE);
+                                            } 
+                                        }
+                                        
 				}
 			});
                     tray.add(trayIcon);
             } catch (Exception e) {
-                   JOptionPane.showMessageDialog(null, e.getMessage(), "创建系统托盘图标异常", JOptionPane.ERROR_MESSAGE);
+                   JOptionPane.showMessageDialog(null, "创建系统托盘图标异常", e.getMessage(),JOptionPane.ERROR_MESSAGE);
             }
 
+    }
+    /**
+     * 修改密码
+     * @param pwd 
+     */
+    public void modifySyspwd(){
+        String password="";
+        try{
+            password=Configer.getProporty("syspwd");
+        } catch (Exception ex) {
+            System.out.print(ex.getMessage());
+        }
+        if(StringUtils.isEmpty(password)){
+            password=Configer.Const.DEFAULT_PASSWORD;//默认密码
+        }
+        String inputPwd=JOptionPane.showInputDialog(null,"请输入新密码",password);
+        if(StringUtils.isNotEmpty(inputPwd)){
+             Configer.setProporty("syspwd", inputPwd);
+             Configer.persistent();
+             JOptionPane.showMessageDialog(null, "密码修改成功！", "提示信息", JOptionPane.INFORMATION_MESSAGE);
+        }
+       
     }
     
     /**
@@ -693,6 +758,7 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
+    private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
