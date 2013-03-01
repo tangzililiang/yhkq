@@ -572,7 +572,7 @@ public class MainFrame extends javax.swing.JFrame {
                                    modifySyspwd();
                             }
                     });
-                    popup.add(aboutItem);
+                    //popup.add(aboutItem);
                     popup.add(exitItem);
                     popup.add(pwdItem);
                     
