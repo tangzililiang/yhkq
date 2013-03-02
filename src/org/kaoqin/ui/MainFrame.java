@@ -174,7 +174,7 @@ public class MainFrame extends javax.swing.JFrame {
         port.setToolTipText("代理服务器端口");
 
         btnBegin.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/kaoqin/ui/tree-clock.png"))); // NOI18N
-        btnBegin.setText("准备考勤");
+        btnBegin.setText("自动考勤");
         btnBegin.setToolTipText("启动定时器，到上下班时间自动为所有用户执行考勤");
         btnBegin.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -551,13 +551,16 @@ public class MainFrame extends javax.swing.JFrame {
     private void initTray() {
             try {
                     TrayIcon trayIcon = null;
-                    
                     // 创建弹出菜单
                     PopupMenu popup = new PopupMenu();
                     MenuItem exitItem = new MenuItem("退出");
                     exitItem.addActionListener(new ActionListener() {
                             public void actionPerformed(ActionEvent e) {
-                                    System.exit(0);
+                                    //托盘图标“右键-退出”程序需要输入密码
+                                    if(validateSyspwd()){
+                                         System.exit(0);
+                                    }
+                                    
                             }
                     });
                     MenuItem aboutItem = new MenuItem("关于");
@@ -581,26 +584,13 @@ public class MainFrame extends javax.swing.JFrame {
                     Image image = Toolkit.getDefaultToolkit().getImage(getClass().getResource("/org/kaoqin/ui/tree-bug.png"));// 载入图片
                     trayIcon = new TrayIcon(image, "YHLemis", popup);// 创建trayIcon
                     trayIcon.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent e) {//输入密码打开主界面
+				public void actionPerformed(ActionEvent e) {
+                                    //双击打开主界面时需要输入密码    
+                                    if(validateSyspwd()){
+                                        MainFrame.this.setVisible(true);
+                                    }else{
                                         MainFrame.this.setVisible(false);
-                                        String password="";
-                                        try{
-                                           password=Configer.getProporty("syspwd");
-                                        } catch (Exception ex) {
-                                           System.out.print(ex.getMessage());
-                                        }
-                                        if(StringUtils.isEmpty(password)){
-                                            password=Configer.Const.DEFAULT_PASSWORD;//默认密码
-                                        }
-                                        String inputPwd=JOptionPane.showInputDialog("请输入密码");
-                                        if(StringUtils.isNotEmpty(inputPwd)){
-                                            if(password.equals(inputPwd)){
-                                                MainFrame.this.setVisible(true);
-                                            }else{
-                                                JOptionPane.showMessageDialog(null, "密码错误！","提示信息", JOptionPane.ERROR_MESSAGE);
-                                            } 
-                                        }
-                                        
+                                    }    
 				}
 			});
                     tray.add(trayIcon);
@@ -630,6 +620,31 @@ public class MainFrame extends javax.swing.JFrame {
              JOptionPane.showMessageDialog(null, "密码修改成功！", "提示信息", JOptionPane.INFORMATION_MESSAGE);
         }
        
+    }
+    /***
+     * 弹出输入窗口校验密码
+     * @return 
+     */
+    public boolean validateSyspwd(){   
+        String password="";
+        try{
+            password=Configer.getProporty("syspwd");
+        } catch (Exception ex) {
+            System.out.print(ex.getMessage());
+        }
+        if(StringUtils.isEmpty(password)){
+            password=Configer.Const.DEFAULT_PASSWORD;//默认密码
+        }
+        String inputPwd=JOptionPane.showInputDialog("请输入密码[默认密码：123456]");
+        if(StringUtils.isNotEmpty(inputPwd)){
+            if(password.equals(inputPwd)){
+                return true;
+            }else{
+                JOptionPane.showMessageDialog(null, "密码错误！","提示信息", JOptionPane.ERROR_MESSAGE);
+                
+            }
+        }
+        return false;
     }
     
     /**

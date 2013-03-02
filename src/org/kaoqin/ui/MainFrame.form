@@ -438,7 +438,7 @@
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
               <Image iconType="3" name="/org/kaoqin/ui/tree-clock.png"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="&#x51c6;&#x5907;&#x8003;&#x52e4;"/>
+            <Property name="text" type="java.lang.String" value="&#x81ea;&#x52a8;&#x8003;&#x52e4;"/>
             <Property name="toolTipText" type="java.lang.String" value="&#x542f;&#x52a8;&#x5b9a;&#x65f6;&#x5668;&#xff0c;&#x5230;&#x4e0a;&#x4e0b;&#x73ed;&#x65f6;&#x95f4;&#x81ea;&#x52a8;&#x4e3a;&#x6240;&#x6709;&#x7528;&#x6237;&#x6267;&#x884c;&#x8003;&#x52e4;"/>
           </Properties>
           <Events>
